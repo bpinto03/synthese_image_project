@@ -35,7 +35,7 @@ static void draw(void) {
     glPointSize(3);
     g3x_Material(G3Xr, .2, .6, .9, 1, 1);    
 
-    sphere.draw_faces(&sphere, (G3Xvector){step, step, 1});
+    tore.draw_faces(&tore, (G3Xvector){step, step, 1});
 }
 
 /* la fonction d'animation (facultatif) */

@@ -17,7 +17,7 @@ void draw_faces_tore(Shape *tore, G3Xvector scale_factor){
 
     glBegin(GL_TRIANGLES);
     for (int i = 0; i < tore->n1; i += stepx) {
-        for(int j = 0; j < tore->n2; j += stepy){
+        for(int j = 0; j < tore->n2 - stepy; j += stepy){
             k = i * tore->n1 + min(j + stepy, tore->n2 - 1);
             NormalVertex3dv(tore->vrtx[k]);
             k = (min(i + stepx, tore->n1) % tore->n1) * tore->n1 + min(j + stepy, tore->n2);
@@ -37,8 +37,7 @@ void draw_faces_tore(Shape *tore, G3Xvector scale_factor){
     glEnd();
 }
 
-void init_tore(Shape *s)
-{
+void init_tore(Shape *s) {
     int k = 0;
     double theta, phi, RI = 0.5, R = 1.0;
 
@@ -57,6 +56,9 @@ void init_tore(Shape *s)
             s->vrtx[i * s->n1 + j] = g3x_Point(g3x_Radcos(i * theta) * (R + RI * g3x_Radcos(j * phi)),
                                    -1 * g3x_Radsin(i * theta) * (R + RI * g3x_Radcos(j * phi)),
                                    RI * g3x_Radsin(j * phi));
+            s->norm[i * s->n1 + j] = (G3Xvector) {g3x_Radcos(i * theta) * g3x_Radcos(j * phi),
+                                   -1 * g3x_Radsin(i * theta) * g3x_Radcos(j * phi),
+                                   g3x_Radsin(j * phi)};
         }
     }
 }

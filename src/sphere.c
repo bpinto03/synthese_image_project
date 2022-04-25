@@ -57,9 +57,9 @@ void init_sphere(Shape *s)
             s->vrtx[i * s->n1 + j] = g3x_Point(R * cos(i * theta) * sin(j * phi),
                            R * sin(i * theta) * sin(j * phi),
                            R * cos(j * phi));
-            s->norm[i * s->n1 + j] = g3x_Point(R * cos(i * theta) * sin(j * phi),
+            s->norm[i * s->n1 + j] = (G3Xvector) { R * cos(i * theta) * sin(j * phi),
                            R * sin(i * theta) * sin(j * phi),
-                           R * cos(j * phi));
+                           R * cos(j * phi)};
         }
     }
 }
