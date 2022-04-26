@@ -11,18 +11,21 @@
 #include "../includes/sphere.h"
 #include "../includes/tore.h"
 #include "../includes/cube.h"
+#include "../includes/cylinder.h"
+
 
 /* tailles de la fenêtre (en pixel) */
 static int WWIDTH = 512, WHEIGHT = 512;
 
-static double step = 1.0;
+static double step = 5.0;
 
-static Shape sphere, tore, cube;
+static Shape sphere, tore, cube, cylinder;
 
 static void init(void) {
     init_sphere(&sphere);
     init_tore(&tore);
     init_cube(&cube);
+    init_cylinder(&cylinder);
 }
 
 /* la fonction de contrôle : appelée 1 seule fois, juste après <init> */
@@ -34,8 +37,8 @@ static void ctrl(void) {
 static void draw(void) {
     glPointSize(3);
     g3x_Material(G3Xr, .2, .6, .9, 1, 1);    
-
-    tore.draw_faces(&tore, (G3Xvector){step, step, 1});
+    
+    cylinder.draw_faces(&cylinder, (G3Xvector){step, step, 1});
 }
 
 /* la fonction d'animation (facultatif) */
