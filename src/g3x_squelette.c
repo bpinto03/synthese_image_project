@@ -9,23 +9,23 @@
 
 #include "../includes/utils.h"
 #include "../includes/sphere.h"
-#include "../includes/tore.h"
+#include "../includes/torus.h"
 #include "../includes/cube.h"
 #include "../includes/cylinder.h"
 #include "../includes/node.h"
+#include "../includes/structures.h"
 
 
 /* tailles de la fenêtre (en pixel) */
 static int WWIDTH = 512, WHEIGHT = 512;
 
-static double step = 5.0;
+static double step = 3.0;
 
-static Shape sphere, tore, cube, cylinder;
+static Shape sphere, torus, cube, cylinder;
 
-static SceneTree tree;
+static SceneTree table1, table2;
 
 static void init(void) {
-    SceneTree child;
     g3x_SetPerspective(40.,100.,1.);
     g3x_SetCameraSpheric(0.25*PI,+0.25*PI,6.,(G3Xpoint){0.,0.,0.});
     g3x_SetLightAmbient (1.,1.,1.);
@@ -35,15 +35,14 @@ static void init(void) {
 
     /* Init of shapes */
     init_sphere(&sphere);
-    init_tore(&tore);
+    init_torus(&torus);
     init_cube(&cube);
     init_cylinder(&cylinder);
 
     /* tree init */
-    tree = createNode(g3x_Identity(), G3Xm, createMaterial(.2, .6, .9, 1.), (G3Xvector) {step, step, 1}, NULL);
-    child = createNodeByParent(*tree, g3x_Homothetie3d(.5, 1, .04), &cube);
-    addChild(tree, child);
-    addNext(child, createNode(g3x_Mat_x_Mat(tree->Md, g3x_Mat_x_Mat(g3x_Translation3d(.35, .85, -0.5), g3x_Homothetie3d(.2, .2, 1.))), G3Xr, createMaterial(.2, .6, .9, 1.), (G3Xvector) {step, step, 1}, &cylinder));
+    table1 = createTable(g3x_Translation3d(0., 0., 0.), &cylinder, &cube);
+    table2 = createTable(g3x_Translation3d(0., 0., 1.), &cylinder, &cube);
+
 }
 
 /* la fonction de contrôle : appelée 1 seule fois, juste après <init> */
@@ -54,7 +53,8 @@ static void ctrl(void) {
 /* la fonction de dessin : appelée en boucle */
 static void draw(void) {
     glPointSize(3);
-    drawTree(tree, step);
+    drawTree(table1);
+    //drawTree(table2);
 }
 
 /* la fonction d'animation (facultatif) */

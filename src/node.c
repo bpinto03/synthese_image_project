@@ -48,7 +48,7 @@ void addNext(SceneTree tree, SceneTree next){
     tree->next = next;
 }
 
-void drawTree(SceneTree tree, int step) {
+void drawTree(SceneTree tree) {
     if(tree == NULL) {
         return;
     }
@@ -58,11 +58,10 @@ void drawTree(SceneTree tree, int step) {
     glMultMatrixd(tree->Md.m);
 
     if(tree->instance != NULL) {
-        tree->scale_factor = (G3Xvector) {step, step, 1};
         tree->instance->draw_faces(tree->instance, tree->scale_factor);
     }
 
-    drawTree(tree->down, step);
+    drawTree(tree->down);
     glPopMatrix();
-    drawTree(tree->next, step);
+    drawTree(tree->next);
 }

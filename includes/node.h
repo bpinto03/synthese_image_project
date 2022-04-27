@@ -27,6 +27,6 @@ void addChild(SceneTree tree, SceneTree child);
 
 void addNext(SceneTree tree, SceneTree next);
 
-void drawTree(SceneTree tree, int step);
+void drawTree(SceneTree tree);
 
 #endif
