@@ -12,6 +12,7 @@
 #include "../includes/tore.h"
 #include "../includes/cube.h"
 #include "../includes/cylinder.h"
+#include "../includes/node.h"
 
 
 /* tailles de la fenêtre (en pixel) */
@@ -21,11 +22,16 @@ static double step = 5.0;
 
 static Shape sphere, tore, cube, cylinder;
 
+static SceneTree tree;
+
 static void init(void) {
     init_sphere(&sphere);
     init_tore(&tore);
     init_cube(&cube);
     init_cylinder(&cylinder);
+    printf("%p\n", tree);
+    tree = createNode(g3x_Identity(), G3Xr, createMaterial(1., 1., 1., 1.), (G3Xvector) {step, step, 1}, NULL);
+    addChild(tree, createNodeByParent(*tree, &sphere));
 }
 
 /* la fonction de contrôle : appelée 1 seule fois, juste après <init> */
@@ -36,9 +42,9 @@ static void ctrl(void) {
 /* la fonction de dessin : appelée en boucle */
 static void draw(void) {
     glPointSize(3);
-    g3x_Material(G3Xr, .2, .6, .9, 1, 1);    
-    
-    cylinder.draw_faces(&cylinder, (G3Xvector){step, step, 1});
+    g3x_Material(G3Xr, .2, .6, .9, 1, 1);
+
+    tree->down->instance->draw_faces(tree->down->instance, tree->down->scale_factor);
 }
 
 /* la fonction d'animation (facultatif) */
