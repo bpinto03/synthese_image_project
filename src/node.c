@@ -13,6 +13,7 @@ Material createMaterial(float ambi, float diff, float spec, float shine) {
 
 SceneTree createNode(G3Xhmat Md, G3Xcolor col, Material mat, G3Xvector scale_factor, Shape *instance){
     SceneTree newNode;
+    newNode = (SceneTree) malloc(sizeof(Node));
 
     newNode->Md           = Md;
     newNode->col          = col;
@@ -26,6 +27,7 @@ SceneTree createNode(G3Xhmat Md, G3Xcolor col, Material mat, G3Xvector scale_fac
 
 SceneTree createNodeByParent(Node parentNode, Shape *instance){
     SceneTree newNode;
+    newNode = (SceneTree) malloc(sizeof(Node));
 
     newNode->Md           = parentNode.Md;
     newNode->col          = parentNode.col;
