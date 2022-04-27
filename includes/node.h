@@ -21,10 +21,12 @@ Material createMaterial(float ambi, float diff, float spec, float shine);
 
 SceneTree createNode(G3Xhmat Md, G3Xcolor col, Material mat, G3Xvector scale_factor, Shape *instance);
 
-SceneTree createNodeByParent(Node parentNode, Shape *instance);
+SceneTree createNodeByParent(Node parentNode, G3Xhmat Md, Shape *instance);
 
 void addChild(SceneTree tree, SceneTree child);
 
 void addNext(SceneTree tree, SceneTree next);
+
+void drawTree(SceneTree tree, int step);
 
 #endif

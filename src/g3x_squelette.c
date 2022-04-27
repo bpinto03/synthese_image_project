@@ -25,12 +25,25 @@ static Shape sphere, tore, cube, cylinder;
 static SceneTree tree;
 
 static void init(void) {
+    SceneTree child;
+    g3x_SetPerspective(40.,100.,1.);
+    g3x_SetCameraSpheric(0.25*PI,+0.25*PI,6.,(G3Xpoint){0.,0.,0.});
+    g3x_SetLightAmbient (1.,1.,1.);
+    g3x_SetLightDiffuse (1.,1.,1.);
+    g3x_SetLightSpecular(1.,1.,1.);
+    g3x_SetLightPosition (10.,10.,10.);
+
+    /* Init of shapes */
     init_sphere(&sphere);
     init_tore(&tore);
     init_cube(&cube);
     init_cylinder(&cylinder);
-    tree = createNode(g3x_Identity(), G3Xr, createMaterial(1., 1., 1., 1.), (G3Xvector) {step, step, 1}, NULL);
-    addChild(tree, createNodeByParent(*tree, &tore));
+
+    /* tree init */
+    tree = createNode(g3x_Identity(), G3Xm, createMaterial(.2, .6, .9, 1.), (G3Xvector) {step, step, 1}, NULL);
+    child = createNodeByParent(*tree, g3x_Homothetie3d(.5, 1, .04), &cube);
+    addChild(tree, child);
+    addNext(child, createNode(g3x_Mat_x_Mat(tree->Md, g3x_Mat_x_Mat(g3x_Translation3d(.35, .85, -0.5), g3x_Homothetie3d(.2, .2, 1.))), G3Xr, createMaterial(.2, .6, .9, 1.), (G3Xvector) {step, step, 1}, &cylinder));
 }
 
 /* la fonction de contrôle : appelée 1 seule fois, juste après <init> */
@@ -41,9 +54,7 @@ static void ctrl(void) {
 /* la fonction de dessin : appelée en boucle */
 static void draw(void) {
     glPointSize(3);
-    g3x_Material(G3Xr, .2, .6, .9, 1, 1);
-
-    tree->down->instance->draw_faces(tree->down->instance, tree->down->scale_factor);
+    drawTree(tree, step);
 }
 
 /* la fonction d'animation (facultatif) */

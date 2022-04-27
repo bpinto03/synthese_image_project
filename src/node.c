@@ -25,11 +25,11 @@ SceneTree createNode(G3Xhmat Md, G3Xcolor col, Material mat, G3Xvector scale_fac
     return newNode;
 }
 
-SceneTree createNodeByParent(Node parentNode, Shape *instance){
+SceneTree createNodeByParent(Node parentNode, G3Xhmat Md, Shape *instance){
     SceneTree newNode;
     newNode = (SceneTree) malloc(sizeof(Node));
 
-    newNode->Md           = parentNode.Md;
+    newNode->Md           = g3x_Mat_x_Mat(parentNode.Md, Md);
     newNode->col          = parentNode.col;
     newNode->mat          = parentNode.mat;
     newNode->scale_factor = parentNode.scale_factor;
@@ -46,4 +46,23 @@ void addChild(SceneTree tree, SceneTree child){
 
 void addNext(SceneTree tree, SceneTree next){
     tree->next = next;
+}
+
+void drawTree(SceneTree tree, int step) {
+    if(tree == NULL) {
+        return;
+    }
+
+    g3x_Material(tree->col, tree->mat.ambi, tree->mat.diff, tree->mat.spec, tree->mat.shine, 1);
+    glPushMatrix();
+    glMultMatrixd(tree->Md.m);
+
+    if(tree->instance != NULL) {
+        tree->scale_factor = (G3Xvector) {step, step, 1};
+        tree->instance->draw_faces(tree->instance, tree->scale_factor);
+    }
+
+    drawTree(tree->down, step);
+    glPopMatrix();
+    drawTree(tree->next, step);
 }
