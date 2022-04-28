@@ -23,10 +23,10 @@ static double step = 3.0;
 
 static Shape sphere, torus, cube, cylinder;
 
-static SceneTree table1, table2;
+static SceneTree table1, table2, ground;
 
 static void init(void) {
-    g3x_SetPerspective(40.,100.,1.);
+    g3x_SetPerspective(50.,100.,1.5);
     g3x_SetCameraSpheric(0.25*PI,+0.25*PI,6.,(G3Xpoint){0.,0.,0.});
     g3x_SetLightAmbient (1.,1.,1.);
     g3x_SetLightDiffuse (1.,1.,1.);
@@ -40,8 +40,12 @@ static void init(void) {
     init_cylinder(&cylinder);
 
     /* tree init */
-    table1 = createTable(g3x_Translation3d(0., 0., 0.), &cylinder, &cube);
-    table2 = createTable(g3x_Translation3d(0., 0., 1.), &cylinder, &cube);
+    table1 = createTable1(&cube, &cylinder);
+
+    //printf("Table 2\n");
+    table2 = createTable2(&cube, &cylinder);
+
+    ground = createGround(&cube);
 
 }
 
@@ -54,7 +58,8 @@ static void ctrl(void) {
 static void draw(void) {
     glPointSize(3);
     drawTree(table1);
-    //drawTree(table2);
+    drawTree(table2);
+    drawTree(ground);
 }
 
 /* la fonction d'animation (facultatif) */
