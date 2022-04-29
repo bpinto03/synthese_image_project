@@ -46,11 +46,11 @@ SceneTree createTable1(Shape *cube, Shape *cylinder) {
     paramTable = createNode(g3x_Mat_x_Mat(g3x_Translation3d(0., 0., .5), g3x_RotationZ(-30)), marron1, createMaterial(.2, .6, .9, 1.), (G3Xvector) {2., 2., 1.}, NULL);
     
     // Up of table
-    plat = createNodeByParent(*paramTable, g3x_Homothetie3d(.5, 1, .1), cube);
+    plat = createNode(g3x_Mat_x_Mat(paramTable->Md, g3x_Homothetie3d(.5, 1, .1)), paramTable->col, paramTable->mat, (G3Xvector) {4., 2., 10.}, cube);
     addChild(paramTable, plat);
 
     // Parameters for table foots.
-    paramFoot = createNode(g3x_Mat_x_Mat(paramTable->Md, g3x_Homothetie3d(.30, .30, 1.)), metal, paramTable->mat, paramTable->scale_factor, NULL);
+    paramFoot = createNode(g3x_Mat_x_Mat(paramTable->Md, g3x_Homothetie3d(.30, .30, 1.)), metal, paramTable->mat, (G3Xvector) {6., 6., 2.}, NULL);
     addNext(plat, paramFoot);
 
     // Foots of table
@@ -80,7 +80,7 @@ SceneTree createTable2(Shape *cube, Shape *cylinder) {
     addChild(paramTable, plat);
 
     // Parameters for table foots.
-    paramFoot = createNode(g3x_Mat_x_Mat(paramTable->Md, g3x_Homothetie3d(.30, .30, 1.)), metal, paramTable->mat, paramTable->scale_factor, NULL);
+    paramFoot = createNode(g3x_Mat_x_Mat(paramTable->Md, g3x_Homothetie3d(.30, .30, 1.)), metal, paramTable->mat, (G3Xvector) {6., 6., 2.}, NULL);
     addNext(plat, paramFoot);
 
     // Foots of table
@@ -97,11 +97,11 @@ SceneTree createTable2(Shape *cube, Shape *cylinder) {
 }
 
 SceneTree createGround(Shape *cube){
-    SceneTree whiteGround, greyGround, ground1, ground2, ground3, ground4, ground5, ground6;
+    SceneTree whiteGround, greyGround, ground1, ground2, ground3, ground4, ground5, ground6, ground7, ground8, ground9;
 
     // Parameters of ground
     whiteGround = createNode(g3x_Mat_x_Mat(g3x_Homothetie3d(1., 1., 0.01), g3x_Translation3d(0., 0., -0.5)),
-                             blanc, createMaterial(.2, .6, .9, 1.), (G3Xvector) {2., 2., 1.}, NULL);
+                             blanc, createMaterial(.2, .6, .9, 1.), (G3Xvector) {2., 2., 2.}, NULL);
     greyGround = createNode(whiteGround->Md, gris, whiteGround->mat, whiteGround->scale_factor, NULL);
     addNext(whiteGround, greyGround);
 
@@ -112,6 +112,10 @@ SceneTree createGround(Shape *cube){
     addNext(ground1, ground2);
     ground6 = createNodeByParent(*whiteGround, g3x_Translation3d(3., -1., 0.), cube);
     addNext(ground2, ground6);
+    ground7 = createNodeByParent(*whiteGround, g3x_Translation3d(-1., 3., 0.), cube);
+    addNext(ground6, ground7);
+    ground9 = createNodeByParent(*whiteGround, g3x_Translation3d(3., 3., 0.), cube);
+    addNext(ground7, ground9);
 
     // Grey grounds
     ground3 = createNodeByParent(*greyGround, g3x_Translation3d(-1, 1, 0.), cube);
@@ -120,6 +124,8 @@ SceneTree createGround(Shape *cube){
     addNext(ground3, ground4);
     ground5 = createNodeByParent(*greyGround, g3x_Translation3d(3., 1., 0.), cube);
     addNext(ground4, ground5);
+    ground8 = createNodeByParent(*greyGround, g3x_Translation3d(1., 3., 0.), cube);
+    addNext(ground5, ground8);
 
     return whiteGround;
 }
@@ -131,11 +137,11 @@ SceneTree createStool1(Shape *cube, Shape *cylinder) {
     paramStool = createNode(g3x_Translation3d(0., 0.25, .57), marron2, createMaterial(.2, .6, .9, 1.), (G3Xvector) {2., 2., 2.}, NULL);
 
     // Up of table
-    flat = createNodeByParent(*paramStool, g3x_Homothetie3d(1., 1., .1), cylinder);
+    flat = createNode(g3x_Mat_x_Mat(paramStool->Md, g3x_Homothetie3d(1., 1., .1)), paramStool->col, paramStool->mat, (G3Xvector) {5., 5., 20.}, cylinder);
     addChild(paramStool, flat);
 
     // Parameters for table foots.
-    paramFoot = createNode(g3x_Mat_x_Mat(paramStool->Md, g3x_Homothetie3d(.20, .20, .75)), metal, paramStool->mat, (G3Xvector) {5., 5., 2.}, NULL);
+    paramFoot = createNode(g3x_Mat_x_Mat(paramStool->Md, g3x_Homothetie3d(.20, .20, .75)), metal, paramStool->mat,(G3Xvector) {20., 20., 10.}, NULL);
     addNext(flat, paramFoot);
 
     // Foots of table
@@ -158,11 +164,11 @@ SceneTree createStool2(Shape *cube, Shape *cylinder) {
     paramStool = createNode(g3x_Translation3d(0., 1., .40), marron2, createMaterial(.2, .6, .9, 1.), (G3Xvector) {2., 2., 2.}, NULL);
 
     // Up of table
-    flat = createNodeByParent(*paramStool, g3x_Homothetie3d(1., 1., .1), cylinder);
+    flat = createNode(g3x_Mat_x_Mat(paramStool->Md, g3x_Homothetie3d(1., 1., .1)), paramStool->col, paramStool->mat, (G3Xvector) {2., 2., 20.}, cylinder);
     addChild(paramStool, flat);
 
     // Parameters for table foots.
-    paramFoot = createNode(g3x_Mat_x_Mat(paramStool->Md, g3x_Homothetie3d(.20, .20, .65)), metal, paramStool->mat, (G3Xvector) {5., 5., 2.}, NULL);
+    paramFoot = createNode(g3x_Mat_x_Mat(paramStool->Md, g3x_Homothetie3d(.20, .20, .65)), metal, paramStool->mat, (G3Xvector) {20., 20., 10.}, NULL);
     addNext(flat, paramFoot);
 
     // Foots of table

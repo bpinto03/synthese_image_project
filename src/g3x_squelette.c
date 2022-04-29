@@ -41,14 +41,9 @@ static void init(void) {
 
     /* tree init */
     table1 = createTable1(&cube, &cylinder);
-
-    //printf("Table 2\n");
     table2 = createTable2(&cube, &cylinder);
-
     ground = createGround(&cube);
-
     stool1 = createStool1(&cube, &cylinder);
-
     stool2 = createStool2(&cube, &cylinder);
 
 }
