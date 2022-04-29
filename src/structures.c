@@ -123,3 +123,57 @@ SceneTree createGround(Shape *cube){
 
     return whiteGround;
 }
+
+SceneTree createStool1(Shape *cube, Shape *cylinder) {
+    SceneTree paramStool, paramFoot, flat, foot1, foot2, foot3, foot4;
+
+    // g3x_Mat_x_Mat(g3x_Translation3d(2.5, 8, .5), g3x_RotationZ(60))
+    paramStool = createNode(g3x_Translation3d(0., 0.25, .57), marron2, createMaterial(.2, .6, .9, 1.), (G3Xvector) {2., 2., 2.}, NULL);
+
+    // Up of table
+    flat = createNodeByParent(*paramStool, g3x_Homothetie3d(1., 1., .1), cylinder);
+    addChild(paramStool, flat);
+
+    // Parameters for table foots.
+    paramFoot = createNode(g3x_Mat_x_Mat(paramStool->Md, g3x_Homothetie3d(.20, .20, .75)), metal, paramStool->mat, (G3Xvector) {5., 5., 2.}, NULL);
+    addNext(flat, paramFoot);
+
+    // Foots of table
+    foot1 = createNodeByParent(*paramFoot,g3x_Translation3d(7, 7, .33), cube);
+    addChild(paramFoot, foot1);
+    foot2 = createNodeByParent(*paramFoot, g3x_Translation3d(-7., -7., .33), cube);
+    addNext(foot1, foot2);
+    foot3 = createNodeByParent(*paramFoot, g3x_Translation3d(7., -7., .33), cube);
+    addNext(foot2, foot3);
+    foot4 = createNodeByParent(*paramFoot, g3x_Translation3d(-7., 7., .33), cube);
+    addNext(foot3, foot4);
+
+    return paramStool;
+}
+
+SceneTree createStool2(Shape *cube, Shape *cylinder) {
+    SceneTree paramStool, paramFoot, flat, foot1, foot2, foot3, foot4;
+
+    // g3x_Mat_x_Mat(g3x_Translation3d(2.5, 8, .5), g3x_RotationZ(60))
+    paramStool = createNode(g3x_Translation3d(0., 1., .40), marron2, createMaterial(.2, .6, .9, 1.), (G3Xvector) {2., 2., 2.}, NULL);
+
+    // Up of table
+    flat = createNodeByParent(*paramStool, g3x_Homothetie3d(1., 1., .1), cylinder);
+    addChild(paramStool, flat);
+
+    // Parameters for table foots.
+    paramFoot = createNode(g3x_Mat_x_Mat(paramStool->Md, g3x_Homothetie3d(.20, .20, .65)), metal, paramStool->mat, (G3Xvector) {5., 5., 2.}, NULL);
+    addNext(flat, paramFoot);
+
+    // Foots of table
+    foot1 = createNodeByParent(*paramFoot,g3x_Translation3d(7, 2, -1.6), cube);
+    addChild(paramFoot, foot1);
+    foot2 = createNodeByParent(*paramFoot, g3x_Translation3d(-7., -10., -1.6), cube);
+    addNext(foot1, foot2);
+    foot3 = createNodeByParent(*paramFoot, g3x_Translation3d(7., -10., -1.6), cube);
+    addNext(foot2, foot3);
+    foot4 = createNodeByParent(*paramFoot, g3x_Translation3d(-7., 2., -1.6), cube);
+    addNext(foot3, foot4);
+
+    return paramStool;
+}

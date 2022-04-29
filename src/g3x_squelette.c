@@ -23,7 +23,7 @@ static double step = 3.0;
 
 static Shape sphere, torus, cube, cylinder;
 
-static SceneTree table1, table2, ground;
+static SceneTree table1, table2, ground, stool1, stool2;
 
 static void init(void) {
     g3x_SetPerspective(50.,100.,1.5);
@@ -47,6 +47,10 @@ static void init(void) {
 
     ground = createGround(&cube);
 
+    stool1 = createStool1(&cube, &cylinder);
+
+    stool2 = createStool2(&cube, &cylinder);
+
 }
 
 /* la fonction de contrôle : appelée 1 seule fois, juste après <init> */
@@ -60,6 +64,8 @@ static void draw(void) {
     drawTree(table1);
     drawTree(table2);
     drawTree(ground);
+    drawTree(stool1);
+    drawTree(stool2);
 }
 
 /* la fonction d'animation (facultatif) */
