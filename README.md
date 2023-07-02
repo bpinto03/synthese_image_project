@@ -1,4 +1,5 @@
 # synthese_image_project
-Project of course "Synthese d'images" in Univesity Gustave Eiffel.
+Univesity Gustave Eiffel project of the course "Synthese d'images".
 
-To use Makefile, please create bin, obj and debug directories.
+# Setup
+Create a bin, obj and debug directories and then use Makefile.
